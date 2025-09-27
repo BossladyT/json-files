@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JSON Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
+    }
+    pre {
+      background: #282c34;
+      color: #abb2bf;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <h1>JSON Viewer</h1>
+  <div id="jsonData">Loading JSON...</div>
+
+  <script>
+    const jsonFile = 'yourfilename.json'; // <-- replace with your actual JSON file name
+
+    fetch(jsonFile)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not OK');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const prettyJson = JSON.stringify(data, null, 2);
+        document.getElementById('jsonData').innerHTML = `<pre>${prettyJson}</pre>`;
+      })
+      .catch(error => {
+        document.getElementById('jsonData').innerText =
+          'Could not load JSON file: ' + error;
+      });
+  </script>
+</body>
+</html>
